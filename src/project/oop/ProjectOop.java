@@ -24,7 +24,7 @@ public class ProjectOop {
             System.out.println("3. Staff Login (Admin/Receptionist)");
             System.out.println("4. Add New Admin");
             System.out.println("5. Add New Receptionist");
-            System.out.println("6. Show Payments Summary (Payable Test)");
+            System.out.println("6. Show Payments Summary");
             System.out.println("7. Exit");
 
             System.out.print("Choice: ");
@@ -47,7 +47,7 @@ public class ProjectOop {
                 case 3 -> loginStaff();
                 case 4 -> createNewAdmin();
                 case 5 -> createNewrec();
-                case 6 -> showPaymentsSummary(); // 🔥 Payable TEST
+                case 6 -> showPaymentsSummary();
                 case 7 -> System.exit(0);
 
                 default -> System.out.println("Invalid choice");
