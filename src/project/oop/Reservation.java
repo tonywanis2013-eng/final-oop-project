@@ -6,7 +6,7 @@ package project.oop;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-public class Reservation {
+public class Reservation implements payable{
     
     private Guest guest;
     private Room room;
@@ -21,11 +21,6 @@ public class Reservation {
                 !checkOutDate.isAfter(checkInDate)) {
             throw new IllegalArgumentException("Invalid date range");
         }
-
-        if (!room.isAvailable()) {
-            throw new RuntimeException("Room is not available");
-        }
-
         this.guest = guest;
         this.room = room;
         this.checkInDate = checkInDate;
@@ -35,12 +30,19 @@ public class Reservation {
         room.setAvailable(false);
     }
 
-    //  getters
+    // 🔥 Implement Payable
+    @Override
+    public double calculatePayment() {
+        double pricePerNight = room.getType().getPrice();
+        return pricePerNight * getNumberOfNights();
+    }
+
+    // getters
     public Guest getGuest() { return guest; }
     public Room getRoom() { return room; }
     public ReservationStatus getStatus() { return status; }
 
-    //  setters
+    // setters
     public void setStatus(ReservationStatus status) {
         this.status = status;
     }
@@ -50,7 +52,7 @@ public class Reservation {
         return ChronoUnit.DAYS.between(checkInDate, checkOutDate);
     }
 
-    //  toString
+    // toString
     @Override
     public String toString() {
         return "Reservation{" +
@@ -58,5 +60,5 @@ public class Reservation {
                 ", room=" + room +
                 ", status=" + status +
                 '}';
-    }   
+    }
 }

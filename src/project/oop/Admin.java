@@ -5,23 +5,39 @@
 package project.oop;
 import java.time.LocalDate;
 
-public class Admin extends Staff 
+public class Admin extends Staff implements Manageable<Room>
 {
-     public Admin(String username, String password,
+    public Admin(String username, String password,
                  LocalDate dateOfBirth, int workingHours) {
 
         super(username, password, dateOfBirth, Role.ADMIN, workingHours);
     }
+
+    
+    @Override
+    public void add(Room room) {
+        addRoom(room);
+    }
+
+    @Override
+    public void update(Room room) {
+        updateRoomAvailability(room, true);
+    }
+
+    @Override
+    public void delete(Room room) {
+        deleteRoom(room);
+    }
+
+    
     public void viewRoomTypes() {
-        for (int i = 0; i < HotelDatabase.roomTypes.size(); i++) {
-            RoomType t = HotelDatabase.roomTypes.get(i);
+        for (RoomType t : HotelDatabase.roomTypes) {
             System.out.println(t);
         }
     }
 
     public void viewAmenities() {
-        for (int i = 0; i < HotelDatabase.amenities.size(); i++) {
-            Amenity a = HotelDatabase.amenities.get(i);
+        for (Amenity a : HotelDatabase.amenities) {
             System.out.println(a);
         }
     }
@@ -90,8 +106,7 @@ public class Admin extends Staff
     }
 
     public RoomType findRoomType(String name) {
-        for (int i = 0; i < HotelDatabase.roomTypes.size(); i++) {
-            RoomType t = HotelDatabase.roomTypes.get(i);
+        for (RoomType t : HotelDatabase.roomTypes) {
             if (t.getName().equals(name)) {
                 return t;
             }
@@ -100,22 +115,22 @@ public class Admin extends Staff
     }
 
     private Amenity findAmenity(String name) {
-        for (int i = 0; i < HotelDatabase.amenities.size(); i++) {
-            Amenity a = HotelDatabase.amenities.get(i);
+        for (Amenity a : HotelDatabase.amenities) {
             if (a.getName().equals(name)) {
                 return a;
             }
         }
         return null;
     }
-    public void viewAllRooms() 
-    {
-    System.out.println("\n--- LIST OF ALL ROOMS ---");
-    for (Room r : HotelDatabase.rooms) {
-        // This assumes your Room class has a way to get the number and type name
-        System.out.println("Room #" + r.getRoomNumber() + " | Type: " + r.getType().getName());
+
+    public void viewAllRooms() {
+        System.out.println("\n--- LIST OF ALL ROOMS ---");
+        for (Room r : HotelDatabase.rooms) {
+            System.out.println("Room #" + r.getRoomNumber() +
+                    " | Type: " + r.getType().getName());
+        }
     }
-    }
+    
 }
     
     

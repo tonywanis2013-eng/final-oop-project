@@ -6,14 +6,15 @@ package project.oop;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Invoice {
-      private Reservation reservation;
+public class Invoice implements payable {
+     private Reservation reservation;
     private PaymentMethod paymentMethod;
     private double totalAmount;
-    private ArrayList<Payment> payments= new ArrayList<>();
+    private ArrayList<Payment> payments=new ArrayList<>();
     private LocalDate paymentDate;
 
-    public Invoice(Reservation reservation ,PaymentMethod method) {
+    // Constructor
+    public Invoice(Reservation reservation, PaymentMethod method) {
         this.reservation = reservation;
         this.paymentMethod = method;
         this.payments = new ArrayList<>();
@@ -22,11 +23,18 @@ public class Invoice {
         this.totalAmount = pricePerNight * reservation.getNumberOfNights();
     }
 
-    public Invoice(Reservation res1) {
-        this(res1, null);
+    
+    public Invoice(Reservation reservation) {
+        this(reservation, null);
     }
 
-    //  add payment
+    
+    @Override
+    public double calculatePayment() {
+        return totalAmount;
+    }
+
+    
     public void addPayment(double amount, PaymentMethod method) {
         Payment p = new Payment(amount, method);
         payments.add(p);
@@ -37,33 +45,51 @@ public class Invoice {
         }
     }
 
-    // total funds
+    
     public double getPaidAmount() {
         double sum = 0;
 
-        for (int i = 0; i < payments.size(); i++) {
-            sum += payments.get(i).getAmount();
+        for (Payment p : payments) {
+            sum += p.getAmount();
         }
 
         return sum;
     }
 
-    // remaining funds
+   
     public double getRemainingAmount() {
         return totalAmount - getPaidAmount();
     }
 
+    // Getter
     public double getTotalAmount() {
         return totalAmount;
     }
 
-    //  toString
+    public LocalDate getPaymentDate() {
+        return paymentDate;
+    }
+
+    public Reservation getReservation() {
+        return reservation;
+    }
+
+    public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public ArrayList<Payment> getPayments() {
+        return payments;
+    }
+
+    // toString
     @Override
     public String toString() {
         return "Invoice{" +
                 "total=" + totalAmount +
                 ", paid=" + getPaidAmount() +
                 ", remaining=" + getRemainingAmount() +
+                ", date=" + paymentDate +
                 '}';
-    }    
+    }
 }

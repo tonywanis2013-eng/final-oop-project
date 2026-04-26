@@ -5,9 +5,9 @@
 package project.oop;
 import java.time.LocalDate;
 
-public class Payment {
+public class Payment implements payable{
     
-     private double amount;
+      private double amount;
     private PaymentMethod method;
     private LocalDate date;
 
@@ -20,7 +20,31 @@ public class Payment {
         this.date = LocalDate.now();
     }
 
+ 
+    @Override
+    public double calculatePayment() {
+        return amount;
+    }
+
+    // getters
     public double getAmount() {
         return amount;
-    }   
+    }
+
+    public PaymentMethod getMethod() {
+        return method;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "amount=" + amount +
+                ", method=" + method +
+                ", date=" + date +
+                '}';
+    }
 }
