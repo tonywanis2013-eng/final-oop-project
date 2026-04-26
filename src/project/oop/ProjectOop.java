@@ -55,7 +55,7 @@ public class ProjectOop {
         }
     }
 
-    // ================= PAYABLE TEST =================
+    
     public static void showPaymentsSummary() {
 
         System.out.println("\n--- PAYABLE TEST ---");
