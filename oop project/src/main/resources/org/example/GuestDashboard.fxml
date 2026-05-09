@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="project.oop.ui.controllers.GuestDashboardController"
+            prefWidth="900" prefHeight="600"
+            style="-fx-background-color: #F1EFE8;">
+
+    <!-- LEFT SIDEBAR -->
+    <left>
+        <VBox spacing="0"
+              style="-fx-background-color: #185FA5; -fx-pref-width: 210px; -fx-padding: 0;">
+
+            <!-- Hotel Brand -->
+            <VBox style="-fx-padding: 24 20 20 20; -fx-background-color: #0C447C;">
+                <Label text="🏨 Grand Hotel"
+                       style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                <Label text="Guest Portal"
+                       style="-fx-font-size: 11px; -fx-text-fill: #B5D4F4;"/>
+            </VBox>
+
+            <!-- Guest Name -->
+            <VBox style="-fx-padding: 16 20 16 20; -fx-background-color: #1468B0;">
+                <Label text="Welcome back," style="-fx-font-size: 11px; -fx-text-fill: #B5D4F4;"/>
+                <Label fx:id="guestNameLabel" text="Guest"
+                       style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            </VBox>
+
+            <!-- Nav Buttons -->
+            <Button text="📊  Dashboard" onAction="#showDashboard"
+                    maxWidth="Infinity" fx:id="btnDashboard"
+                    style="-fx-background-color: rgba(255,255,255,0.18); -fx-text-fill: white;
+                           -fx-font-size: 13px; -fx-alignment: CENTER_LEFT;
+                           -fx-padding: 12 20 12 20; -fx-border-width: 0;
+                           -fx-background-radius: 0; -fx-cursor: hand; -fx-font-weight: bold;"/>
+
+            <Button text="🛏  Browse Rooms" onAction="#showRooms"
+                    maxWidth="Infinity"
+                    style="-fx-background-color: transparent; -fx-text-fill: #B5D4F4;
+                           -fx-font-size: 13px; -fx-alignment: CENTER_LEFT;
+                           -fx-padding: 12 20 12 20; -fx-border-width: 0;
+                           -fx-background-radius: 0; -fx-cursor: hand;"/>
+
+            <Button text="📋  My Reservations" onAction="#showReservations"
+                    maxWidth="Infinity"
+                    style="-fx-background-color: transparent; -fx-text-fill: #B5D4F4;
+                           -fx-font-size: 13px; -fx-alignment: CENTER_LEFT;
+                           -fx-padding: 12 20 12 20; -fx-border-width: 0;
+                           -fx-background-radius: 0; -fx-cursor: hand;"/>
+
+            <Button text="💳  Checkout" onAction="#showCheckout"
+                    maxWidth="Infinity"
+                    style="-fx-background-color: transparent; -fx-text-fill: #B5D4F4;
+                           -fx-font-size: 13px; -fx-alignment: CENTER_LEFT;
+                           -fx-padding: 12 20 12 20; -fx-border-width: 0;
+                           -fx-background-radius: 0; -fx-cursor: hand;"/>
+
+            <!-- Spacer -->
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <!-- Logout -->
+            <Button text="🚪  Logout" onAction="#handleLogout"
+                    maxWidth="Infinity"
+                    style="-fx-background-color: rgba(163,45,45,0.7); -fx-text-fill: white;
+                           -fx-font-size: 13px; -fx-alignment: CENTER_LEFT;
+                           -fx-padding: 12 20 12 20; -fx-border-width: 0;
+                           -fx-background-radius: 0; -fx-cursor: hand;"/>
+        </VBox>
+    </left>
+
+    <!-- MAIN CONTENT -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;">
+            <VBox spacing="20" style="-fx-padding: 28;">
+
+                <Label text="Dashboard"
+                       style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C2C2A;"/>
+
+                <!-- Top metric cards -->
+                <HBox spacing="16">
+
+                    <!-- Balance Card -->
+                    <VBox spacing="6"
+                          style="-fx-background-color: white; -fx-padding: 18;
+                                 -fx-background-radius: 12; -fx-border-color: #D3D1C7;
+                                 -fx-border-width: 0.5; -fx-border-radius: 12;"
+                          HBox.hgrow="ALWAYS">
+                        <Label text="💰  My Balance"
+                               style="-fx-font-size: 12px; -fx-text-fill: #888780;"/>
+                        <Label fx:id="balanceLabel" text="0.00"
+                               style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #185FA5;"/>
+                    </VBox>
+
+                    <!-- Active Reservations Card -->
+                    <VBox spacing="6"
+                          style="-fx-background-color: white; -fx-padding: 18;
+                                 -fx-background-radius: 12; -fx-border-color: #D3D1C7;
+                                 -fx-border-width: 0.5; -fx-border-radius: 12;"
+                          HBox.hgrow="ALWAYS">
+                        <Label text="📋  Active Reservations"
+                               style="-fx-font-size: 12px; -fx-text-fill: #888780;"/>
+                        <Label fx:id="reservationCountLabel" text="0"
+                               style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #185FA5;"/>
+                    </VBox>
+
+                    <!-- Room Preference Card -->
+                    <VBox spacing="6"
+                          style="-fx-background-color: white; -fx-padding: 18;
+                                 -fx-background-radius: 12; -fx-border-color: #D3D1C7;
+                                 -fx-border-width: 0.5; -fx-border-radius: 12;"
+                          HBox.hgrow="ALWAYS">
+                        <Label text="🛏  Room Preference"
+                               style="-fx-font-size: 12px; -fx-text-fill: #888780;"/>
+                        <Label fx:id="prefLabel" text="—"
+                               style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #185FA5;"/>
+                    </VBox>
+
+                </HBox>
+
+                <!-- Profile Info Card -->
+                <VBox spacing="12"
+                      style="-fx-background-color: white; -fx-padding: 20;
+                             -fx-background-radius: 12; -fx-border-color: #D3D1C7;
+                             -fx-border-width: 0.5; -fx-border-radius: 12;">
+
+                    <Label text="My Profile"
+                           style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #2C2C2A;"/>
+
+                    <GridPane hgap="20" vgap="10">
+                        <Label text="Username:" style="-fx-text-fill: #888780; -fx-font-size: 13px;" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                        <Label fx:id="profileUsername" text="—" style="-fx-font-size: 13px; -fx-font-weight: bold;" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                        <Label text="Gender:" style="-fx-text-fill: #888780; -fx-font-size: 13px;" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                        <Label fx:id="profileGender" text="—" style="-fx-font-size: 13px; -fx-font-weight: bold;" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                        <Label text="Address:" style="-fx-text-fill: #888780; -fx-font-size: 13px;" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                        <Label fx:id="profileAddress" text="—" style="-fx-font-size: 13px; -fx-font-weight: bold;" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                        <Label text="Date of Birth:" style="-fx-text-fill: #888780; -fx-font-size: 13px;" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                        <Label fx:id="profileDob" text="—" style="-fx-font-size: 13px; -fx-font-weight: bold;" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                    </GridPane>
+
+                </VBox>
+
+                <!-- Latest Reservation -->
+                <VBox spacing="10"
+                      style="-fx-background-color: white; -fx-padding: 20;
+                             -fx-background-radius: 12; -fx-border-color: #D3D1C7;
+                             -fx-border-width: 0.5; -fx-border-radius: 12;">
+                    <Label text="Latest Reservation"
+                           style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #2C2C2A;"/>
+                    <Label fx:id="latestReservationLabel" text="No active reservation."
+                           style="-fx-font-size: 13px; -fx-text-fill: #888780;"/>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

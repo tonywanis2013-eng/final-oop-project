@@ -1,0 +1,5 @@
+project\oop\ui\controllers\StaffDashboardController.class
+project\oop\util\SessionStaff.class
+project\oop\ui\controllers\AdminDashboardController.class
+project\oop\ui\controllers\ManageRoomsController.class
+project\oop\ui\controllers\ManageRoomsController$1.class

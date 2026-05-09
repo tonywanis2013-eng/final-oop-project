@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="project.oop.ui.controllers.AdminDashboardController"
+            prefWidth="900" prefHeight="600"
+            style="-fx-background-color: #F1EFE8;">
+
+    <!-- LEFT SIDEBAR -->
+    <left>
+        <VBox spacing="0"
+              style="-fx-background-color: #185FA5; -fx-pref-width: 210px; -fx-padding: 0;">
+
+            <VBox style="-fx-padding: 24 20 20 20; -fx-background-color: #0C447C;">
+                <Label text="🏨 Grand Hotel"
+                       style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                <Label text="Admin Portal"
+                       style="-fx-font-size: 11px; -fx-text-fill: #B5D4F4;"/>
+            </VBox>
+
+            <VBox style="-fx-padding: 16 20 16 20; -fx-background-color: #1468B0;">
+                <Label text="Logged in as," style="-fx-font-size: 11px; -fx-text-fill: #B5D4F4;"/>
+                <Label fx:id="staffNameLabel" text="Admin"
+                       style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                <Label text="ADMIN"
+                       style="-fx-font-size: 11px; -fx-text-fill: #B5D4F4;"/>
+            </VBox>
+
+            <Button text="👥  Guests" onAction="#showGuests"
+                    maxWidth="Infinity" fx:id="btnGuests"
+                    style="-fx-background-color: rgba(255,255,255,0.18); -fx-text-fill: white;
+                           -fx-font-size: 13px; -fx-alignment: CENTER_LEFT;
+                           -fx-padding: 12 20 12 20; -fx-border-width: 0;
+                           -fx-background-radius: 0; -fx-cursor: hand; -fx-font-weight: bold;"/>
+
+            <Button text="🛏  Rooms" onAction="#showRooms"
+                    maxWidth="Infinity" fx:id="btnRooms"
+                    style="-fx-background-color: transparent; -fx-text-fill: #B5D4F4;
+                           -fx-font-size: 13px; -fx-alignment: CENTER_LEFT;
+                           -fx-padding: 12 20 12 20; -fx-border-width: 0;
+                           -fx-background-radius: 0; -fx-cursor: hand;"/>
+
+            <Button text="📋  Reservations" onAction="#showReservations"
+                    maxWidth="Infinity" fx:id="btnReservations"
+                    style="-fx-background-color: transparent; -fx-text-fill: #B5D4F4;
+                           -fx-font-size: 13px; -fx-alignment: CENTER_LEFT;
+                           -fx-padding: 12 20 12 20; -fx-border-width: 0;
+                           -fx-background-radius: 0; -fx-cursor: hand;"/>
+
+            <Button text="🏗  Manage Rooms" onAction="#goToManageRooms"
+                    maxWidth="Infinity" fx:id="btnManageRooms"
+                    style="-fx-background-color: transparent; -fx-text-fill: #B5D4F4;
+                           -fx-font-size: 13px; -fx-alignment: CENTER_LEFT;
+                           -fx-padding: 12 20 12 20; -fx-border-width: 0;
+                           -fx-background-radius: 0; -fx-cursor: hand;"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <Button text="🚪  Logout" onAction="#handleLogout"
+                    maxWidth="Infinity"
+                    style="-fx-background-color: rgba(163,45,45,0.7); -fx-text-fill: white;
+                           -fx-font-size: 13px; -fx-alignment: CENTER_LEFT;
+                           -fx-padding: 12 20 12 20; -fx-border-width: 0;
+                           -fx-background-radius: 0; -fx-cursor: hand;"/>
+        </VBox>
+    </left>
+
+    <!-- MAIN CONTENT -->
+    <center>
+        <VBox spacing="20" style="-fx-padding: 28;">
+
+            <Label fx:id="pageTitle" text="Guests"
+                   style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C2C2A;"/>
+
+            <!-- Guests Table -->
+            <TableView fx:id="guestsTable" VBox.vgrow="ALWAYS"
+                       style="-fx-background-color: white; -fx-background-radius: 12;
+                              -fx-border-color: #D3D1C7; -fx-border-width: 0.5; -fx-border-radius: 12;">
+                <columns>
+                    <TableColumn fx:id="colGuestUsername" text="Username"    prefWidth="150"/>
+                    <TableColumn fx:id="colGuestGender"   text="Gender"      prefWidth="100"/>
+                    <TableColumn fx:id="colGuestDob"      text="Date of Birth" prefWidth="130"/>
+                    <TableColumn fx:id="colGuestAddress"  text="Address"     prefWidth="180"/>
+                    <TableColumn fx:id="colGuestBalance"  text="Balance"     prefWidth="100"/>
+                    <TableColumn fx:id="colGuestPref"     text="Preference"  prefWidth="120"/>
+                </columns>
+                <placeholder><Label text="No guests found." style="-fx-text-fill: #888780;"/></placeholder>
+            </TableView>
+
+            <!-- Rooms Table -->
+            <TableView fx:id="roomsTable" VBox.vgrow="ALWAYS" visible="false" managed="false"
+                       style="-fx-background-color: white; -fx-background-radius: 12;
+                              -fx-border-color: #D3D1C7; -fx-border-width: 0.5; -fx-border-radius: 12;">
+                <columns>
+                    <TableColumn fx:id="colRoomNumber"    text="Room #"      prefWidth="80"/>
+                    <TableColumn fx:id="colRoomType"      text="Type"        prefWidth="120"/>
+                    <TableColumn fx:id="colRoomPrice"     text="Price/Night" prefWidth="120"/>
+                    <TableColumn fx:id="colRoomCapacity"  text="Capacity"    prefWidth="90"/>
+                    <TableColumn fx:id="colRoomAmenities" text="Amenities"   prefWidth="200"/>
+                    <TableColumn fx:id="colRoomStatus"    text="Status"      prefWidth="100"/>
+                </columns>
+                <placeholder><Label text="No rooms found." style="-fx-text-fill: #888780;"/></placeholder>
+            </TableView>
+
+            <!-- Reservations Table -->
+            <TableView fx:id="reservationsTable" VBox.vgrow="ALWAYS" visible="false" managed="false"
+                       style="-fx-background-color: white; -fx-background-radius: 12;
+                              -fx-border-color: #D3D1C7; -fx-border-width: 0.5; -fx-border-radius: 12;">
+                <columns>
+                    <TableColumn fx:id="colResId"       text="ID"        prefWidth="60"/>
+                    <TableColumn fx:id="colResGuest"    text="Guest"     prefWidth="120"/>
+                    <TableColumn fx:id="colResRoom"     text="Room #"    prefWidth="80"/>
+                    <TableColumn fx:id="colResCheckIn"  text="Check-In"  prefWidth="120"/>
+                    <TableColumn fx:id="colResCheckOut" text="Check-Out" prefWidth="120"/>
+                    <TableColumn fx:id="colResStatus"   text="Status"    prefWidth="110"/>
+                    <TableColumn fx:id="colResTotal"    text="Total"     prefWidth="90"/>
+                </columns>
+                <placeholder><Label text="No reservations found." style="-fx-text-fill: #888780;"/></placeholder>
+            </TableView>
+
+        </VBox>
+    </center>
+
+</BorderPane>

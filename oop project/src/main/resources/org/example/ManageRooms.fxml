@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="project.oop.ui.controllers.ManageRoomsController"
+            prefWidth="900" prefHeight="600"
+            style="-fx-background-color: #F1EFE8;">
+
+    <!-- LEFT SIDEBAR -->
+    <left>
+        <VBox spacing="0"
+              style="-fx-background-color: #185FA5; -fx-pref-width: 210px; -fx-padding: 0;">
+
+            <VBox style="-fx-padding: 24 20 20 20; -fx-background-color: #0C447C;">
+                <Label text="🏨 Grand Hotel"
+                       style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                <Label text="Admin Portal"
+                       style="-fx-font-size: 11px; -fx-text-fill: #B5D4F4;"/>
+            </VBox>
+
+            <Button text="← Back to Dashboard" onAction="#goBack"
+                    maxWidth="Infinity"
+                    style="-fx-background-color: transparent; -fx-text-fill: #B5D4F4;
+                           -fx-font-size: 13px; -fx-alignment: CENTER_LEFT;
+                           -fx-padding: 12 20 12 20; -fx-border-width: 0;
+                           -fx-background-radius: 0; -fx-cursor: hand;"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <Button text="🚪  Logout" onAction="#handleLogout"
+                    maxWidth="Infinity"
+                    style="-fx-background-color: rgba(163,45,45,0.7); -fx-text-fill: white;
+                           -fx-font-size: 13px; -fx-alignment: CENTER_LEFT;
+                           -fx-padding: 12 20 12 20; -fx-border-width: 0;
+                           -fx-background-radius: 0; -fx-cursor: hand;"/>
+        </VBox>
+    </left>
+
+    <!-- MAIN CONTENT -->
+    <center>
+        <VBox spacing="20" style="-fx-padding: 28;">
+
+            <Label text="Manage Rooms"
+                   style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C2C2A;"/>
+
+            <!-- Add Room Form -->
+            <VBox spacing="12"
+                  style="-fx-background-color: white; -fx-padding: 20;
+                         -fx-background-radius: 12; -fx-border-color: #D3D1C7;
+                         -fx-border-width: 0.5; -fx-border-radius: 12;">
+
+                <Label text="Add New Room"
+                       style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #185FA5;"/>
+
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <VBox spacing="4">
+                        <Label text="Room Number" style="-fx-font-size: 12px; -fx-text-fill: #5F5E5A;"/>
+                        <TextField fx:id="roomNumberField" promptText="e.g. 305"
+                                   style="-fx-pref-height: 34; -fx-pref-width: 120;
+                                          -fx-background-radius: 8; -fx-border-color: #B4B2A9;
+                                          -fx-border-width: 0.5; -fx-background-color: #F8F8F6;"/>
+                    </VBox>
+                    <VBox spacing="4">
+                        <Label text="Room Type" style="-fx-font-size: 12px; -fx-text-fill: #5F5E5A;"/>
+                        <ComboBox fx:id="roomTypeCombo" promptText="Select type"
+                                  style="-fx-pref-height: 34; -fx-background-radius: 8;
+                                         -fx-border-color: #B4B2A9; -fx-border-width: 0.5;
+                                         -fx-background-color: #F8F8F6;"/>
+                    </VBox>
+                    <VBox spacing="4" style="-fx-padding: 16 0 0 0;">
+                        <Button text="➕  Add Room" onAction="#handleAddRoom"
+                                style="-fx-background-color: #185FA5; -fx-text-fill: white;
+                                       -fx-font-size: 13px; -fx-background-radius: 8;
+                                       -fx-pref-height: 34; -fx-padding: 0 16 0 16; -fx-cursor: hand;"/>
+                    </VBox>
+                </HBox>
+
+                <Label fx:id="addStatusLabel" text=""
+                       style="-fx-font-size: 12px; -fx-text-fill: #C0392B;"/>
+            </VBox>
+
+            <!-- Rooms Table -->
+            <VBox spacing="10" VBox.vgrow="ALWAYS"
+                  style="-fx-background-color: white; -fx-padding: 20;
+                         -fx-background-radius: 12; -fx-border-color: #D3D1C7;
+                         -fx-border-width: 0.5; -fx-border-radius: 12;">
+
+                <Label text="All Rooms"
+                       style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #185FA5;"/>
+
+                <TableView fx:id="roomsTable" VBox.vgrow="ALWAYS"
+                           style="-fx-background-color: transparent; -fx-border-width: 0;">
+                    <columns>
+                        <TableColumn fx:id="colRoomNumber"    text="Room #"      prefWidth="80"/>
+                        <TableColumn fx:id="colRoomType"      text="Type"        prefWidth="120"/>
+                        <TableColumn fx:id="colRoomPrice"     text="Price/Night" prefWidth="120"/>
+                        <TableColumn fx:id="colRoomCapacity"  text="Capacity"    prefWidth="90"/>
+                        <TableColumn fx:id="colRoomAmenities" text="Amenities"   prefWidth="200"/>
+                        <TableColumn fx:id="colRoomStatus"    text="Status"      prefWidth="100"/>
+                    </columns>
+                    <placeholder><Label text="No rooms." style="-fx-text-fill: #888780;"/></placeholder>
+                </TableView>
+
+                <HBox spacing="12">
+                    <Button text="🗑  Delete Selected" onAction="#handleDeleteRoom"
+                            style="-fx-background-color: #C0392B; -fx-text-fill: white;
+                                   -fx-font-size: 13px; -fx-background-radius: 6;
+                                   -fx-padding: 9 18 9 18; -fx-cursor: hand;"/>
+                    <Label fx:id="deleteStatusLabel" text=""
+                           style="-fx-font-size: 12px; -fx-text-fill: #C0392B;"/>
+                </HBox>
+            </VBox>
+
+        </VBox>
+    </center>
+
+</BorderPane>
